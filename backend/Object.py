@@ -1,3 +1,4 @@
+#TODO this is obsolete in its current form. I'd like to see some unit tests instead 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
@@ -19,4 +20,5 @@ session.commit()
 
 # Test if data was inserted
 our_user = session.query(User).filter_by(first_name='ed').first() 
-our_user
+for instance in session.query(User):
+    print instance.id
