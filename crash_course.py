@@ -1,4 +1,4 @@
-from backend import User, Course, Exam, Session
+from backend import User, Course, Exam, Session, ClassSession, UserHasExam, Attendance, UserHasCourse
 from datetime import datetime
 # quick crash course on working with the backend
 
@@ -21,19 +21,28 @@ with Session() as s:
                   surname='Mickievicius',
                   idnumber='2',
                   password='pass',
+                  student=True),
+             User(first_name='Sample',
+                  surname='Tutor',
+                  idnumber='3',
+                  password='pass',
+                  tutor=True,
                   student=True)]
 
     courses = [Course("CS1P", ""),
                Course("PL3", ""),
-               Course("PSD3", "")]
+               Course("PS3", "")]
 
+    # CS1P has 1 Lab that starts and ends now and the tutor is the Sample Tutor
     class_sessions = [ClassSession(courses[0],
                                    "Lab 1", 
                                    datetime.now(), 
-                                   datetime.now())]
+                                   datetime.now(),
+                                   users[3])]
+
 
     # this is important. If you don't add the objects, they will be inevitably lost
-    s.add(users + courses)
+    s.add(users + courses + class_sessions)
 
     # this is important as well. Because exams depend on users and courses, you
     # have to commit users and courses before you create exams. You might be
@@ -41,15 +50,24 @@ with Session() as s:
     s.session.commit()
     
     # semantically -- Adam takes PL3, Bruno takes PS3, Gabrielius takes PS3.
-    exams = [Exam(courses[2], users[1]),
-             Exam(courses[1], users[0]),
-             Exam(courses[2], users[2])]
+    user_has_courses = [UserHasCourse(users[0], courses[1], student=True),
+                        UserHasCourse(users[1], courses[2], student=True),
+                        UserHasCourse(users[2], courses[2], student=True)]
+
+    # semantically -- CS1P has one assignment worth 10 and one exam worth 80
+    exams = [Exam(80, courses[0], exam=True),
+             Exam(10, courses[0], assignment=True)]
+
+    # semantically -- Adam has taken PS3's exam, so did Bruno
+    user_has_exams = [UserHasExam(exams[0], users[1]),
+                      UserHasExam(exams[0], users[0])]
+
     
-    s.add(exams)
+    s.add(user_has_courses + exams + user_has_exams)
 
 with Session() as s:
     #all students who take the PS3 course.
-    who_takes_PS3 = s.students_by_exam("PS3")
+    who_takes_PS3 = s.students_by_course("PS3")
     for instance in who_takes_PS3:
         print instance.first_name
 

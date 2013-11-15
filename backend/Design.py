@@ -24,6 +24,19 @@ class User(Base):
         self.idnumber = idnumber
         self.admin = admin
 
+class UserHasCourse(Base):
+    __tablename__ = 'users_has_course'
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    course_id = Column(Integer, ForeignKey('courses.id'))
+    student = Column(Boolean)
+    lecturer = Column(Boolean)
+    def __init__(self, user, course, student=False, lecturer=False):
+        self.user_id = user.id
+        self.course_id = course.id
+        self.student = student
+        self.lecturer = lecturer
+
 class Exam(Base):
     __tablename__ = 'exams'
     id = Column(Integer, primary_key=True)
@@ -42,8 +55,8 @@ class UserHasExam(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
     exam_id = Column(Integer, ForeignKey('exams.id'))
-    result = Column(Integer)
-    def __init__(self, user, exam, result):
+    result = Column(Integer, nullable=True)
+    def __init__(self, user, exam, result=None):
         self.user_id = user.id
         self.exam_id = exam.id
         self.result = result
@@ -53,34 +66,24 @@ class Course(Base):
     id = Column(Integer, primary_key=True)
     idnumber = Column(String)
     name = Column(String)
-    lecturer_id = Column(Integer, ForeignKey('users.id'), nullable=True)
-    tutor_id = Column(Integer, ForeignKey('users.id'), nullable=True)
-    def __init__(self, idnumber, name, lecturer=None, tutor=None):
-        if lecturer == None:
-            lecturer_id = None
-        else:
-            lecturer_id = lecturer.id
-        if tutor == None:
-            tutor_id = None
-        else:
-            tutor_id = tutor.id
+    def __init__(self, idnumber, name):
         self.idnumber = idnumber
         self.name = name
-        self.lecturer_id = lecturer_id
-        self.tutor_id = tutor_id
 
 class ClassSession(Base):
     __tablename__ = 'sessions'
     id = Column(Integer, primary_key=True)
     course_id = Column(Integer, ForeignKey('courses.id'))
+    tutor_id = Column(Integer, ForeignKey('users.id'))
     name = Column(String)
     start = Column(DateTime)
     end = Column(DateTime)
-    def __init__(self, course, name, start, end):
+    def __init__(self, course, name, start, end, tutor):
         self.course_id = course.id
         self.name = name
         self.start = start
         self.end = end
+        self.tutor = tutor
 
 class Attendance(Base):
     __tablename__ = 'attendances'

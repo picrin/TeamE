@@ -1,5 +1,5 @@
 import sqlalchemy
-from Design import User, Course, Exam, Base
+from Design import Base, User, Course, Exam, ClassSession, UserHasExam, Attendance, UserHasCourse
 from sqlalchemy.orm import sessionmaker, relationship, join
 
 # Change to True to print database changes
@@ -39,10 +39,10 @@ class Session(object):
                         User.password == password).all()
         return not not query     
     
-    def students_by_exam(self, exam_name):
-        return self.session.query(User).\
-                    select_from(join(User, Exam).join(Course)).\
-                    filter(Course.name == exam_name)
+    def students_by_course(self, course_idnumber):
+        return self.session.query(Course).\
+                    join(UserHasCourse).\
+                    filter(Course.id == course_idnumber)
     @property
     def users(self):
         return self.session.query(User)
@@ -53,5 +53,12 @@ class Session(object):
     
     @property
     def courses(self):
-        return self.session.query(Courses)
-    
+        return self.session.query(Course)
+
+    @property
+    def attendances(self):
+        return self.session.query(Attendance)    
+
+    @property
+    def user_has_course(self):
+        return self.session.query(User).join(UserHasCourse)
