@@ -1,33 +1,37 @@
 from backend import User, Course, Exam, Session
+from datetime import datetime
 # quick crash course on working with the backend
 
 # ================================ Example 1 ==================================
 # this block automagically opens and closes the connection to the database.
 # before closing the connection it automatically flushes all the files.
 with Session() as s:
+
     users = [User(first_name='Adam',
                   surname='Kurkiewicz',
+                  idnumber='0',
                   password='pass',
-                  student=True,
-                  lecturer=False,
-                  tutor=False),
+                  student=True),
              User(first_name='Bruno',
                   surname='Peres',
+                  idnumber='1',
                   password='pass',
-                  student=True,
-                  lecturer=False,
-                  tutor=False),
+                  student=True),
              User(first_name='Gabrielius',
                   surname='Mickievicius',
+                  idnumber='2',
                   password='pass',
-                  student=True,
-                  lecturer=False,
-                  tutor=False)]
+                  student=True)]
 
-    courses = [Course("CS1P"),
-               Course("PL3"),
-               Course("PS3")]
-    
+    courses = [Course("CS1P", ""),
+               Course("PL3", ""),
+               Course("PSD3", "")]
+
+    class_sessions = [ClassSession(courses[0],
+                                   "Lab 1", 
+                                   datetime.now(), 
+                                   datetime.now())]
+
     # this is important. If you don't add the objects, they will be inevitably lost
     s.add(users + courses)
 
