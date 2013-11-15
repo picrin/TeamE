@@ -1,6 +1,7 @@
-from backend import Session
+##from backend import Session
 import sys
 import os
+import CsvExport
 
 #######Functions########
 
@@ -16,7 +17,7 @@ def adminMenu():
 		print "\nYou entered and invalid option. Please reenter:"
 		menuOption=input()
 	options={1:attendanceMonitor,
-		2:cvsExport,}
+		2:CsvExport.menu,}
 	while(menuOption!=0):
 		clearScreen()
 		options[menuOption]()
@@ -61,18 +62,6 @@ def attendanceMonitor():
 		#TODO get session ID to pass to a function that handles the attendance stuff (Vlad and Arnas?)
 	elif(manOrScan==2):
 		print "\nEnter function for barcode scanner input of attendance." #FUNCTION
-		
-
-def csvExport():
-	print "What you would like to export:\n1.All student attendance records for a single course\n2.All recorded information for a single student\n0.Main Menu\nPlease enter your choice:"
-	csvChoice=input()
-	while(csvChoice<0 or csvChoice>2):
-		print "\nYou entered an invalid choice please try again:"
-		csvChoice=input()
-	if (csvChoice==1):
-		print "Enter function for by course csv export" #FUNCTION
-	elif(csvChoice==2):
-		print "Enter function for by student csv export."#FUNCTION
 
 
 ############## Main Programme###########
