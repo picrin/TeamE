@@ -38,7 +38,12 @@ with Session() as s:
                                    "Lab 1", 
                                    datetime.now(), 
                                    datetime.now(),
-                                   users[3])]
+                                   users[3]),
+                      ClassSession(courses[2],
+                                   "Lab 1 PSD", 
+                                   datetime.now(), 
+                                   datetime.now(),
+                                   users[3]),]
 
 
     # this is important. If you don't add the objects, they will be inevitably lost
@@ -62,7 +67,6 @@ with Session() as s:
     user_has_exams = [UserHasExam(exams[0], users[1]),
                       UserHasExam(exams[0], users[0])]
 
-    
     s.add(user_has_courses + exams + user_has_exams)
 
 with Session() as s:
@@ -70,6 +74,20 @@ with Session() as s:
     who_takes_PS3 = s.students_by_course("PS3")
     for instance in who_takes_PS3:
         print instance.first_name
+
+with Session() as s:
+    #all sessions tutored by tutor 4
+    sessions_tutor1_tutors = s.sessions_by_tutor(4)
+    for instance in sessions_tutor1_tutors:
+        print instance.name
+
+# Sample queries
+s.sessions_by_tutor(4)
+s.sessions_by_course(1)
+s.sessions_by_student(1)
+s.students_in_session(1)
+s.set_attendance(1, 1, "presence")
+s.students_by_course("PS3")
 
 # ================================ Example 2 ==================================
 

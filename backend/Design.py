@@ -86,11 +86,14 @@ class ClassSession(Base):
         self.tutor = tutor
 
 class Attendance(Base):
+    """Note: When a student enrols on a session, it is 
+    stored on this table. After the session has happened
+    the tutor updates the presence column"""
     __tablename__ = 'attendances'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
     session_id = Column(Integer, ForeignKey('sessions.id'))
-    presence = Column(String)
+    presence = Column(String, nullable=True)
     def __init__(self, user, session, presence):
         self.user_id = user.id
         self.session_id = session.id
