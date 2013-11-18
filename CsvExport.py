@@ -1,3 +1,4 @@
+from backend import Session
 
 def menu():
   print "What you would like to export:\n\
@@ -24,9 +25,10 @@ def _menuSelectCourse():
   with Session() as s:
     
     courses = s.courses
-    for i in xrange(len(courses)):
-      c = courses[i]
-      print str(i) + '. ' + c.name + '(' + c.idnumber + ')\n'
+    i = 1
+    for c in courses:
+      print str(i) + '. ' + c.name + '(' + c.idnumber + ')'
+      i += 1
     
-    choice = input('\nSelect a course:')
+    choice = input('\nSelect a course: ')
     

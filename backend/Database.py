@@ -8,7 +8,7 @@ class Session(object):
     
     def __new__(cls, *args, **kwargs):
         if Session.instance is None:
-            Session.engine = sqlalchemy.create_engine('sqlite:///:memory:', echo=True)
+            Session.engine = sqlalchemy.create_engine('sqlite:///data_from_crash_course.db', echo=False)
             Session.instance = object.__new__(cls, *args, **kwargs)
             Session.session_factory = sessionmaker(bind=Session.engine)
 
