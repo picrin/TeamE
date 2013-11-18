@@ -7,3 +7,6 @@ sessions.
 
 Currently our team members are: Adam Kurkiewicz, Arnas Gabrielius Šlepikas, Bruno Peres, Chris Meechan, 
 Gabrielius Mickevičius and Vlad Tudor Bradu.
+
+## Third-party libraries
+It is required that SQLAlchemy be installed on the machine running the prototype, so it works properly.
