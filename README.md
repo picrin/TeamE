@@ -7,3 +7,9 @@ sessions.
 
 Currently our team members are: Adam Kurkiewicz, Arnas Gabrielius Šlepikas, Bruno Peres, Chris Meechan, 
 Gabrielius Mickevičius and Vlad Tudor Bradu.
+
+
+Sprint 2
+========
+
+On the second sprint we have to work on technical spikes, testing the applicability of the Spring MVC Framework on the project.
