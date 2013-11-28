@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Session Adding</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<form action="#" th:action="@{/session_added}" method="post" th:object="${s}">
+
+ 		Date: <input type="text" th:field="*{date}" />
+		<input type="submit" /> 
+	</form>
+</body>
+</html>
