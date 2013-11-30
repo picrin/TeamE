@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head>
+    <!-- Bootstrap core CSS -->
+    <link href="http://bootswatch.com/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  </head>
+  <body>
+  	
+	<!-- Static navbar -->
+	<div th:fragment="headerNavBar">
+	<div class="navbar navbar-default navbar-static-top"
+    	 role="navigation" th:switch="${appUser.type}">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="./">Prototype #2</a>
+      </div>
+        <ul class="nav navbar-nav">
+          <li th:case="'teach_admin'"><a href="#">Add Sessions</a></li>
+          <li><a href="#">View Timetable</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="./signout">Sign out</a></li>
+        </ul>
+    </div>
+    </div>
+    
+  </body>
+</html>

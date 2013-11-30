@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head>
+  	<meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="shortcut icon" href="http://getbootstrap.com/docs-assets/ico/favicon.png"/>
+
+    <title>Main Menu</title>
+  
+    <!-- Bootstrap core CSS -->
+    <link href="http://bootswatch.com/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  </head>
+  <body>
+  
+    <div th:include="home/components :: headerNavBar"></div>
+    <div class="container">
+      <h1>Hello, <span th:text="${appUser.username}">gorgeous</span>!</h1>
+    </div>
+    
+  </body>
+</html>

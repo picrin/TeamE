@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="shortcut icon" href="http://getbootstrap.com/docs-assets/ico/favicon.png"/>
+
+    <title>Sign In</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://bootswatch.com/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <style>
+		body {
+		  padding-top: 40px;
+		  padding-bottom: 40px;
+		  background-color: #eee;
+		}
+		
+		.heading h1 {
+			margin: 0;
+		}
+		
+		.form-signin, .heading {
+		  max-width: 330px;
+		  padding: 15px;
+		  margin: 0 auto;
+		}
+		.form-signin .form-signin-heading,
+		.form-signin {
+		  margin-bottom: 10px;
+		}
+		.form-signin {
+		  font-weight: normal;
+		}
+		.form-signin .form-control {
+		  position: relative;
+		  font-size: 16px;
+		  height: auto;
+		  padding: 10px;
+		  -webkit-box-sizing: border-box;
+		     -moz-box-sizing: border-box;
+		          box-sizing: border-box;
+		}
+		.form-signin .form-control:focus {
+		  z-index: 2;
+		}
+		.form-signin input[type="text"] {
+		  margin-bottom: -1px;
+		  border-bottom-left-radius: 0;
+		  border-bottom-right-radius: 0;
+		}
+		.form-signin input[type="password"] {
+		  margin-bottom: 10px;
+		  border-top-left-radius: 0;
+		  border-top-right-radius: 0;
+		}
+    </style>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="heading text-center">
+        <h1 class="text-center">Prototype #2</h1>
+        <p><span class="label label-success">Team E</span></p>
+      </div>
+      <form class="form-signin" id="loginForm">
+        <h3 class="form-signin-heading">Please sign in</h3>
+        <input name="guid" type="text" class="form-control" placeholder="GUID" required="true" autofocus="true"/>
+        <input name="password" type="password" class="form-control" placeholder="Password" required="true"/>
+        <button id="btnSubmit" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+      <p class="text-center">Use <span class="text-primary">admin</span> or <span class="text-primary">student</span> for GUID.</p>
+    </div> <!-- /container -->
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+	    function disableForm(b) {
+	    	$('#loginForm input, #btnSubmit').attr('disabled', b);
+	    }
+    
+	    $('#btnSubmit').click(function(e){
+	        e.preventDefault();
+	        $.post('signin', 
+	           $('#loginForm').serialize(), 
+	           function(data, status, xhr){
+	        	if (status == "success") {
+	        		if ($.parseJSON(data).success > 0) {
+	        			location = location.origin;
+		        		return;
+	        		}
+	        	 }
+	        	
+	        	 disableForm(false);
+	           });
+	        disableForm(true);
+	  	});
+    </script>
+  </body>
+</html>
