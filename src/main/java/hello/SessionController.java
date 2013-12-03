@@ -1,7 +1,5 @@
 package hello;
 
-import java.util.ArrayList;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,21 +11,20 @@ public class SessionController {
 
 	@RequestMapping("/list_session")
 	public String session(Model model) {
-		ArrayList<String> sessionStrings = new ArrayList<String>(2);
-		sessionStrings.add("while");
-		sessionStrings.add("not");
-		model.addAttribute("sessionList", sessionStrings);
-		model.addAttribute("mySession", sessionStrings.get(0));
+
+		model.addAttribute("sessionList", Application.sessions);
+
 		return "list_session";
 	}
 
 	@RequestMapping(value = "/session_added", method = RequestMethod.POST)
-	public String processAddSession(@ModelAttribute(value = "date") Session s,
-			Model model) {
+	public String processAddSession(@ModelAttribute("s") Session s, Model model) {
 
 		model.addAttribute("s", s);
-		System.out.println(s.getDate());
-		return "session_added";
+
+		Application.sessions.add(s);
+
+		return "list_session";
 	}
 
 	@RequestMapping(value = "/add_session")

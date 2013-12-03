@@ -1,20 +1,24 @@
 package hello;
 
-import java.sql.Time;
 import java.util.Date;
 
-public class Session {
+import org.springframework.format.annotation.DateTimeFormat;
 
+public class Session {
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date date;
-	private Time time;
-	private long duration;
+	@DateTimeFormat(pattern = "hh:mm")
+	private Date time;
+	@DateTimeFormat(pattern = "hh:mm")
+	private Date duration;
 	private int repeatFrequency;
 	private String lecturer;
 	private int maxAttendance;
 	private String compulsory;
 	private String venue;
 
-	public Session(Date date, Time time, long duration, int repeatFrequency,
+	public Session(Date date, Date time, Date duration, int repeatFrequency,
 			String lecturer, int maxAttendance, String compulsory, String venue) {
 		this.date = date;
 		this.time = time;
@@ -38,19 +42,19 @@ public class Session {
 		this.date = date;
 	}
 
-	public Time getTime() {
+	public Date getTime() {
 		return time;
 	}
 
-	public void setTime(Time time) {
+	public void setTime(Date time) {
 		this.time = time;
 	}
 
-	public long getDuration() {
+	public Date getDuration() {
 		return duration;
 	}
 
-	public void setDuration(long duration) {
+	public void setDuration(Date duration) {
 		this.duration = duration;
 	}
 

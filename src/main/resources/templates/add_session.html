@@ -3,19 +3,52 @@
 <head>
 <title>Session Adding</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="http://bootswatch.com/bower_components/bootstrap/dist/css/bootstrap.min.css"
+	rel="stylesheet" />
 </head>
 <body>
-	<form action="#" th:action="@{/session_added}" method="post" th:object="${s}">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Add new Session</h1>
+				<form action="#" th:action="@{/session_added}" method="post"
+					th:object="${s}">
+					<div class="form-group">
+						<label>Date:<input type="text" th:field="*{date}"
+							placeholder="dd/mm/yyyy" /></label> <br />
+					</div>
+					<div class="form-group">
+						<label>Time:<input type="text" th:field="*{time}"
+							placeholder="hh:mm" /></label> <br />
+					</div>
+					<div class="form-group">
+						<label>Duration:<input type="text" th:field="*{duration}"
+							placeholder="hh:mm" /></label><br />
+					</div>
+					<div class="form-group">
+						<label>Repeat frequency:<input type="text"
+							th:field="*{repeatFrequency}" /></label><br />
+					</div>
+					<div class="form-group">
+						<label>Lecturer:<input type="text" th:field="*{lecturer}" /></label><br />
+					</div>
+					<div class="form-group">
+						<label>Max attendance:<input type="text"
+							th:field="*{maxAttendance}" /></label><br />
+					</div>
+					<div class="form-group">
+						<label>Compulsory:<input type="text"
+							th:field="*{compulsory}" /></label><br />
+					</div>
+					<div class="form-group">
+						<label>Venue:<input type="text" th:field="*{venue}" /></label><br />
+					</div>
+					<input class="btn btn-primary" type="submit" />
+				</form>
+			</div>
+		</div>
+	</div>
 
- 		<label>Date:<input type="date" th:field="*{date}" /></label> <br/>
- 		<label>Time:<input type="time" th:field="*{time}" /></label> <br/>
- 		<label>Duration:<input type="number" th:field="*{duration}" /></label><br/>
- 		<label>Repeat frequency:<input type="number" th:field="*{repeatFrequency}" /></label><br/>
- 		<label>Lecturer:<input type="text" th:field="*{lecturer}" /></label><br/>
- 		<label>Max attendance:<input type="text" th:field="*{maxAttendance}" /></label><br/>
- 		<label>Compulsory:<input type="text" th:field="*{compulsory}" /></label><br/>
- 		<label>Venue:<input type="text" th:field="*{venue}" /></label><br/>
-		<input type="submit" /> 
-	</form>
 </body>
 </html>

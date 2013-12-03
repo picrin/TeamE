@@ -3,21 +3,42 @@
 <head>
 <title>Session Listing</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="http://bootswatch.com/bower_components/bootstrap/dist/css/bootstrap.min.css"
+	rel="stylesheet" />
 </head>
 <body>
-	<p th:text="'Our session is: ' + ${mySession}" />
-	<br />
-	<table>
-		<thead>
-			<th>ID</th>
-			<th>Name</th>
-			<th>Age</th>
-		</thead>
-		<tbody>
-			<tr th:each="currentSession : ${sessionList}">
-				<td th:text="${currentSession}"/>
-			</tr>
-		</tbody>
-	</table>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Session Listing</h1>
+				<table class="table table-bordered table-responsive table-hover">
+					<thead>
+						<th>Date</th>
+						<th>Time</th>
+						<th>Duration</th>
+						<th>Repeat frequency</th>
+						<th>Lecturer</th>
+						<th>Max attendance</th>
+						<th>Compulsory</th>
+						<th>Venue</th>
+					</thead>
+					<tbody>
+						<tr th:each="currentSession : ${sessionList}">
+							<td th:text="${currentSession.date}" />
+							<td th:text="${currentSession.time}" />
+							<td th:text="${currentSession.duration}" />
+							<td th:text="${currentSession.repeatFrequency}" />
+							<td th:text="${currentSession.lecturer}" />
+							<td th:text="${currentSession.maxAttendance}" />
+							<td th:text="${currentSession.compulsory}" />
+							<td th:text="${currentSession.venue}" />
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<a th:href="@{/add_session}"><button class="btn btn-primary">Add new session</button></a>
+	</div>
 </body>
 </html>
