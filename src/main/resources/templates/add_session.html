@@ -7,7 +7,14 @@
 <body>
 	<form action="#" th:action="@{/session_added}" method="post" th:object="${s}">
 
- 		Date: <input type="text" th:field="*{date}" />
+ 		<label>Date:<input type="date" th:field="*{date}" /></label> <br/>
+ 		<label>Time:<input type="time" th:field="*{time}" /></label> <br/>
+ 		<label>Duration:<input type="number" th:field="*{duration}" /></label><br/>
+ 		<label>Repeat frequency:<input type="number" th:field="*{repeatFrequency}" /></label><br/>
+ 		<label>Lecturer:<input type="text" th:field="*{lecturer}" /></label><br/>
+ 		<label>Max attendance:<input type="text" th:field="*{maxAttendance}" /></label><br/>
+ 		<label>Compulsory:<input type="text" th:field="*{compulsory}" /></label><br/>
+ 		<label>Venue:<input type="text" th:field="*{venue}" /></label><br/>
 		<input type="submit" /> 
 	</form>
 </body>

@@ -16,7 +16,6 @@ public class Session {
 
 	public Session(Date date, Time time, long duration, int repeatFrequency,
 			String lecturer, int maxAttendance, String compulsory, String venue) {
-		super();
 		this.date = date;
 		this.time = time;
 		this.duration = duration;
