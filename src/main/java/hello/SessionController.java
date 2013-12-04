@@ -1,5 +1,7 @@
 package hello;
 
+import hello.beans.AppUser;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,27 +13,38 @@ public class SessionController {
 
 	@RequestMapping("/list_session")
 	public String session(Model model) {
+		if (!Application.appUser.getType().equals(AppUser.TYPE_TEACHING_ADMIN))
+			return HomeController.unauthResponse();
 
 		model.addAttribute("sessionList", Application.sessions);
-
 		return "list_session";
 	}
 
 	@RequestMapping(value = "/session_added", method = RequestMethod.POST)
 	public String processAddSession(@ModelAttribute("s") Session s, Model model) {
+		if (!Application.appUser.getType().equals(AppUser.TYPE_TEACHING_ADMIN))
+			return HomeController.unauthResponse();
 
 		model.addAttribute("s", s);
 
 		Application.sessions.add(s);
 
-		return "list_session";
+		return "redirect:/list_session";
 	}
 
 	@RequestMapping(value = "/add_session")
 	public String addSession(Model model) {
+		if (!Application.appUser.getType().equals(AppUser.TYPE_TEACHING_ADMIN))
+			return HomeController.unauthResponse();
+		
 		Session s = new Session();
 		model.addAttribute("s", s);
 		return "add_session";
 	}
+	
+	@ModelAttribute("appUser")
+    public AppUser getAppUser() {
+        return Application.appUser;
+    }
 
 }

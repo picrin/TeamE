@@ -2,7 +2,6 @@ package hello;
 
 import hello.beans.AppUser;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,15 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HomeController {
 	
-	@Autowired
-	AppUser appUser = new AppUser();
-	
 	@RequestMapping("/")
     public String index(Model model) {
-		if (appUser.isInitialized()) {
+		if (Application.appUser.isInitialized()) {
 			return "home/home";
 		} else {
-			return "redirect:/signin";
+			return unauthResponse();
 		}
     }
 	
@@ -48,7 +44,7 @@ public class HomeController {
 		}
 		
 		if (newUser != null) {
-			appUser = newUser;
+			Application.appUser = newUser;
 			return "{\"success\": 1}";
 		} else {
 			return "{\"success\": 0}";
@@ -57,12 +53,34 @@ public class HomeController {
 	
 	@RequestMapping(value = "/signout")
 	public String signout(Model model) {
-		appUser = new AppUser();
-		return "redirect:/signin";
+		Application.appUser = new AppUser();
+		return unauthResponse();
+	}
+	
+	/**
+	 * To disallow unsigned or unauthorized users to visit links
+	 * put this at the top of http response methods:
+	 * 
+	 * if (!Application.appUser.isInitialized())
+	 *     return HomeController.unauthResponse();
+	 * 
+	 * or this:
+	 * 
+	 * if (!Application.appUser.getType().equals(AppUser.TYPE_TEACHING_ADMIN))
+	 *     return HomeController.unauthResponse();
+	 *     
+	 * Note (Gabrielius): This kind of redirection could be achieved more neatly
+	 *   using interceptor classes, but I don't know how to use them yet.
+	 **/
+	public static String unauthResponse() {
+		if (Application.appUser.isInitialized())
+			return "redirect:/";
+		else
+			return "redirect:/signin";
 	}
 	
 	@ModelAttribute("appUser")
     public AppUser getAppUser() {
-        return appUser;
+        return Application.appUser;
     }
 }

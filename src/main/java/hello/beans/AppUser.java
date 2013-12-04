@@ -12,8 +12,8 @@ public class AppUser {
 	public static final String TYPE_STUDENT = "student";
 	public static final String TYPE_TEACHING_ADMIN = "teach_admin";
 	
-	private String type;
-	private String username;
+	private String type = "";
+	private String username = "";
 	
 	public String getType() {
 		return type;
