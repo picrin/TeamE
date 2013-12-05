@@ -13,8 +13,6 @@ public class SessionController {
 
 	@RequestMapping("/list_session")
 	public String session(Model model) {
-		if (!Application.appUser.getType().equals(AppUser.TYPE_TEACHING_ADMIN))
-			return HomeController.unauthResponse();
 
 		model.addAttribute("sessionList", Application.sessions);
 		return "list_session";
@@ -36,15 +34,15 @@ public class SessionController {
 	public String addSession(Model model) {
 		if (!Application.appUser.getType().equals(AppUser.TYPE_TEACHING_ADMIN))
 			return HomeController.unauthResponse();
-		
+
 		Session s = new Session();
 		model.addAttribute("s", s);
 		return "add_session";
 	}
-	
+
 	@ModelAttribute("appUser")
-    public AppUser getAppUser() {
-        return Application.appUser;
-    }
+	public AppUser getAppUser() {
+		return Application.appUser;
+	}
 
 }
