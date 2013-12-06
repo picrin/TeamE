@@ -40,6 +40,10 @@
 			</div>
 		</div>
 		<div th:switch="${appUser.type}">
+			<div class="pull-right">
+				<a th:if="${showPrevWeek}" th:href="@{/list_session(week=${prevWeek})}"><button class="btn btn-success">Prev Week</button></a>
+				<a th:href="@{/list_session(week=${nextWeek})}"><button class="btn btn-success">Next Week</button></a>
+			</div>
 			<a th:case="'teach_admin'" th:href="@{/add_session}"><button class="btn btn-primary">Add new session</button></a>
 		</div>
 	</div>

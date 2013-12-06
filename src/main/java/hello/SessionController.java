@@ -20,9 +20,11 @@ public class SessionController {
 	private final long WEEK_IN_MILISECONDS = 1000*60*60*24*7;
 
 	@RequestMapping("/list_session")
-	public String session(@RequestParam(value="week", defaultValue="0") String week, Model model) {
+	public String session(@RequestParam(value="week", defaultValue="0") String weekStr, Model model) {
 		if (!Application.appUser.isInitialized())
 			return HomeController.unauthResponse();
+		
+		int week = Integer.parseInt(weekStr);
 		
 		ArrayList<Session> sessionsToPrint;
 		if (Application.appUser.getUsername().equals(AppUser.TYPE_STUDENT)) {
@@ -31,8 +33,10 @@ public class SessionController {
 			sessionsToPrint = Application.sessions;
 		}
 		
-		model.addAttribute("week", week);
-		model.addAttribute("sessionList", filterSessions(sessionsToPrint, Integer.parseInt(week)));
+		model.addAttribute("nextWeek", Integer.toString(week+1));
+		model.addAttribute("prevWeek", Integer.toString(week-1));
+		model.addAttribute("showPrevWeek", week > 0);
+		model.addAttribute("sessionList", filterSessions(sessionsToPrint, week));
 		return "list_session";
 	}
 	
