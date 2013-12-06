@@ -21,6 +21,9 @@ public class SessionController {
 
 	@RequestMapping("/list_session")
 	public String session(@RequestParam(value="week", defaultValue="0") String week, Model model) {
+		if (!Application.appUser.isInitialized())
+			return HomeController.unauthResponse();
+		
 		ArrayList<Session> sessionsToPrint;
 		if (Application.appUser.getUsername().equals(AppUser.TYPE_STUDENT)) {
 			sessionsToPrint = Application.adamSessions;
