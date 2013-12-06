@@ -96,7 +96,7 @@
 	           function(data, status, xhr){
 	        	if (status == "success") {
 	        		if ($.parseJSON(data).success > 0) {
-	        			location = location.origin;
+	        			location.pathname = "";
 		        		return;
 	        		}
 	        	 }
