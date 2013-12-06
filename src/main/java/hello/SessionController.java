@@ -2,6 +2,8 @@ package hello;
 
 import hello.beans.AppUser;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,8 +15,13 @@ public class SessionController {
 
 	@RequestMapping("/list_session")
 	public String session(Model model) {
-
-		model.addAttribute("sessionList", Application.sessions);
+		ArrayList<Session> sessionToPrint;
+		if (Application.appUser.getUsername().equals(AppUser.TYPE_STUDENT)) {
+			sessionToPrint = Application.adamSessions;
+		} else {
+			sessionToPrint = Application.sessions;
+		}
+		model.addAttribute("sessionList", sessionToPrint);
 		return "list_session";
 	}
 

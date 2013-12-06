@@ -6,12 +6,18 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class Session {
 	
+	/**
+	 * The date of the first session
+	 */
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date date;
 	@DateTimeFormat(pattern = "hh:mm")
 	private Date time;
 	@DateTimeFormat(pattern = "hh:mm")
 	private Date duration;
+	/**
+	 * Number of weeks between every session
+	 */
 	private int repeatFrequency;
 	private String lecturer;
 	private int maxAttendance;
