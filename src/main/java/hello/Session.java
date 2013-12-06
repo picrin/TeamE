@@ -1,11 +1,13 @@
 package hello;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class Session {
-	
+
 	/**
 	 * The date of the first session
 	 */
@@ -20,7 +22,13 @@ public class Session {
 	 */
 	private int repeatFrequency;
 	private String lecturer;
+	/**
+	 * Maximum number of students in the session
+	 */
 	private int maxAttendance;
+	/**
+	 * "Mandatory" or "Optional"
+	 */
 	private String compulsory;
 	private String venue;
 
@@ -37,7 +45,31 @@ public class Session {
 	}
 
 	public Session() {
+
+	}
+
+	public String getFormattedDate() {
+		if (date != null) {
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			return df.format(date);
+		}
+		return "";
+	}
 	
+	public String getFormattedTime() {
+		if (time != null) {
+			DateFormat df = new SimpleDateFormat("HH:mm");
+			return df.format(time);
+		}
+		return "";
+	}
+	
+	public String getFormattedDuration() {
+		if (duration != null) {
+			DateFormat df = new SimpleDateFormat("hh:mm");
+			return df.format(duration);
+		}
+		return "";
 	}
 
 	public Date getDate() {
