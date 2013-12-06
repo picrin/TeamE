@@ -1,11 +1,12 @@
 package hello;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class Session {
-	
+public class Session implements Comparable<Session>{
 	/**
 	 * The date of the first session
 	 */
@@ -18,10 +19,17 @@ public class Session {
 	/**
 	 * Number of weeks between every session
 	 */
-	private int repeatFrequency;
-	
+
+	private int repeatFrequency = 1;
+
 	private String lecturer;
+	/**
+	 * Maximum number of students in the session
+	 */
 	private int maxAttendance;
+	/**
+	 * "Mandatory" or "Optional"
+	 */
 	private String compulsory;
 	private String venue;
 
@@ -30,7 +38,7 @@ public class Session {
 		this.date = date;
 		this.time = time;
 		this.duration = duration;
-		this.repeatFrequency = repeatFrequency;
+		setRepeatFrequency(repeatFrequency);
 		this.lecturer = lecturer;
 		this.maxAttendance = maxAttendance;
 		this.compulsory = compulsory;
@@ -38,7 +46,30 @@ public class Session {
 	}
 
 	public Session() {
+	}
+
+	public String getFormattedDate() {
+		if (date != null) {
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			return df.format(date);
+		}
+		return "";
+	}
 	
+	public String getFormattedTime() {
+		if (time != null) {
+			DateFormat df = new SimpleDateFormat("HH:mm");
+			return df.format(time);
+		}
+		return "";
+	}
+	
+	public String getFormattedDuration() {
+		if (duration != null) {
+			DateFormat df = new SimpleDateFormat("hh:mm");
+			return df.format(duration);
+		}
+		return "";
 	}
 
 	public Date getDate() {
@@ -70,7 +101,7 @@ public class Session {
 	}
 
 	public void setRepeatFrequency(int repeatFrequency) {
-		this.repeatFrequency = repeatFrequency;
+		this.repeatFrequency = Math.max(1, repeatFrequency);
 	}
 
 	public String getLecturer() {
@@ -104,4 +135,10 @@ public class Session {
 	public void setVenue(String venue) {
 		this.venue = venue;
 	}
+
+	@Override
+	public int compareTo(Session otherSession) {
+		return date.compareTo(otherSession.getDate());
+	}
+
 }
