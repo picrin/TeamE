@@ -26,9 +26,9 @@
 					</thead>
 					<tbody>
 						<tr th:each="currentSession : ${sessionList}">
-							<td th:text="${currentSession.date}" />
-							<td th:text="${currentSession.time}" />
-							<td th:text="${currentSession.duration}" />
+							<td th:text="${currentSession.formattedDate}" />
+							<td th:text="${currentSession.formattedTime}" />
+							<td th:text="${currentSession.formattedDuration}" />
 							<td th:text="${currentSession.repeatFrequency}" />
 							<td th:text="${currentSession.lecturer}" />
 							<td th:text="${currentSession.maxAttendance}" />
@@ -39,7 +39,9 @@
 				</table>
 			</div>
 		</div>
-		<a th:href="@{/add_session}"><button class="btn btn-primary">Add new session</button></a>
+		<div th:switch="${appUser.type}">
+			<a th:case="'teach_admin'" th:href="@{/add_session}"><button class="btn btn-primary">Add new session</button></a>
+		</div>
 	</div>
 </body>
 </html>
