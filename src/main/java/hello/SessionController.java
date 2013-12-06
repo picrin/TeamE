@@ -6,9 +6,12 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
 
 @Controller
 public class SessionController {
@@ -26,9 +29,12 @@ public class SessionController {
 	}
 
 	@RequestMapping(value = "/session_added", method = RequestMethod.POST)
-	public String processAddSession(@ModelAttribute("s") Session s, Model model) {
+	public String processAddSession(@ModelAttribute("s") Session s,BindingResult result, Model model) {
 		if (!Application.appUser.getType().equals(AppUser.TYPE_TEACHING_ADMIN))
 			return HomeController.unauthResponse();
+		if(result.hasErrors()){
+			return "add_session";
+		}
 
 		model.addAttribute("s", s);
 
@@ -41,9 +47,10 @@ public class SessionController {
 	public String addSession(Model model) {
 		if (!Application.appUser.getType().equals(AppUser.TYPE_TEACHING_ADMIN))
 			return HomeController.unauthResponse();
-
+		boolean errorDetected = true;
 		Session s = new Session();
 		model.addAttribute("s", s);
+		model.addAttribute("error", errorDetected);
 		return "add_session";
 	}
 

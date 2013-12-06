@@ -19,6 +19,7 @@ public class Session {
 	 * Number of weeks between every session
 	 */
 	private int repeatFrequency;
+	
 	private String lecturer;
 	private int maxAttendance;
 	private String compulsory;
@@ -103,5 +104,4 @@ public class Session {
 	public void setVenue(String venue) {
 		this.venue = venue;
 	}
-
 }
